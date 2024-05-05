@@ -1,7 +1,11 @@
 import { FC } from "react";
+import Logo from "./Logo/Logo";
+import logo from "../assets/cupcake_logo.png";
 
 const App: FC = () => {
-  return <h1>Hello, World!</h1>
+  return (
+    <Logo src={logo} width={300} />
+  );
 };
 
 export default App;
