@@ -1,4 +1,5 @@
-import { FC } from "react"
+import { FC } from "react";
+import classes from './Logo.module.scss';
 
 interface LogoProps {
   width: number;
@@ -7,7 +8,7 @@ interface LogoProps {
 
 const Logo: FC<LogoProps> = ({ width, src }) => {
   return (
-    <img src={src} alt="cupcake logo" width={width} />
+    <img className={classes.logo} src={src} alt="cupcake logo" width={width} />
   )
 }
 
