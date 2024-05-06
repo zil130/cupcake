@@ -1,5 +1,7 @@
 ## Тестовое задание на позицию фронтенд разработчика в команду cupcake development
 
+### (React, Typescript, Webpack)
+
 ## Installation
 
 ```bash
