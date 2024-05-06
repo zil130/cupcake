@@ -40,16 +40,20 @@ const Table: FC<TableProps> = ({
               : thirdData.rates[baseCurrency] / thirdData.rates[quoteCurrency],
           };
 
+          const minNumber = Object.values(data)
+            .filter(value => typeof value === 'number' && !isNaN(value))
+            .reduce((min, value) => Math.min(min, value), Infinity);
+
           return (
             <tr key={baseCurrency + quoteCurrency}>
               <td className={classes.td}>{baseCurrency} / {quoteCurrency}</td>
-              <td className={classes.td}>
+              <td className={`${classes.td} ${data.first === minNumber ? classes.highlight : ''}`}>
                 {isNaN(data.first) ? '---' : parseFloat(data.first.toFixed(2))}
               </td>
-              <td className={classes.td}>
+              <td className={`${classes.td} ${data.second === minNumber ? classes.highlight : ''}`}>
                 {isNaN(data.second) ? '---' : parseFloat(data.second.toFixed(2))}
               </td>
-              <td className={classes.td}>
+              <td className={`${classes.td} ${data.third === minNumber ? classes.highlight : ''}`}>
                 {isNaN(data.third) ? '---' : parseFloat(data.third.toFixed(2))}
               </td>
             </tr>
