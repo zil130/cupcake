@@ -1,8 +1,8 @@
-type Currency = 'RUB' | 'USD' | 'EUR' | 'CUPCAKE';
+import Currency from "./types";
 
 interface ICurrencyPair {
   baseCurrency: Currency;
-  quoteCurrency: Currency
+  quoteCurrency: Currency | 'CUPCAKE';
 }
 
 export default ICurrencyPair;

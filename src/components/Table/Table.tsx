@@ -1,12 +1,21 @@
 import { FC } from "react";
 import classes from './Table.module.scss';
-import ICurrencyPair from "../../models/ICurrency";
+import ICurrencyPair from "../../models/ICurrencyPair";
+import ICurrencyData from "../../models/ICurrencyData";
 
 interface TableProps {
   pairs: ICurrencyPair[];
+  firstData: ICurrencyData;
+  secondData: ICurrencyData;
+  thirdData: ICurrencyData;
 }
 
-const Table: FC<TableProps> = ({ pairs }) => {
+const Table: FC<TableProps> = ({
+  pairs,
+  firstData,
+  secondData,
+  thirdData
+}) => {
   return (
     <table className={classes.table}>
       <thead>
@@ -18,13 +27,31 @@ const Table: FC<TableProps> = ({ pairs }) => {
         </tr>
       </thead>
       <tbody>
-        {pairs.map((pair) => {
+        {pairs.map(({ baseCurrency, quoteCurrency }) => {
+          const data = {
+            first: quoteCurrency === 'CUPCAKE'
+              ? firstData.rates[baseCurrency]
+              : firstData.rates[baseCurrency] / firstData.rates[quoteCurrency],
+            second: quoteCurrency === 'CUPCAKE'
+              ? secondData.rates[baseCurrency]
+              : secondData.rates[baseCurrency] / secondData.rates[quoteCurrency],
+            third: quoteCurrency === 'CUPCAKE'
+              ? thirdData.rates[baseCurrency]
+              : thirdData.rates[baseCurrency] / thirdData.rates[quoteCurrency],
+          };
+
           return (
-            <tr key={pair.baseCurrency + pair.quoteCurrency}>
-              <td className={classes.td}>{pair.baseCurrency} / {pair.quoteCurrency}</td>
-              <td className={classes.td}></td>
-              <td className={classes.td}></td>
-              <td className={classes.td}></td>
+            <tr key={baseCurrency + quoteCurrency}>
+              <td className={classes.td}>{baseCurrency} / {quoteCurrency}</td>
+              <td className={classes.td}>
+                {isNaN(data.first) ? '---' : parseFloat(data.first.toFixed(2))}
+              </td>
+              <td className={classes.td}>
+                {isNaN(data.second) ? '---' : parseFloat(data.second.toFixed(2))}
+              </td>
+              <td className={classes.td}>
+                {isNaN(data.third) ? '---' : parseFloat(data.third.toFixed(2))}
+              </td>
             </tr>
           )
         })}
